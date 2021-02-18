@@ -35,14 +35,14 @@ public class AddressBookMain {
 	}
 
 	public static void main(String Args[]) {
-    	        Scanner sc = new Scanner(System.in);
-    	        AddressBook contact[] = new AddressBook[10];
-    	        System.out.println("Weclome to Address Book \n");
+    	       Scanner sc = new Scanner(System.in);
+               AddressBook contact[] = new AddressBook[10];
+    	       System.out.println("Weclome to Address Book \n");
     	while (true) {
-    		System.out.println("Select an option \n 1.Add \n 2.Edit \n 3.Delete");
-    		int option = sc.nextInt();
-    		switch (option) {
-    		case 1:
+    	       System.out.println("Select an option \n 1.Add \n 2.Edit \n 3.Delete");
+    	       int option = sc.nextInt();
+    	       switch (option) {
+    	       case 1:
     			System.out.println("Enter Number of Contacts \n");
     			NO_OF_CONTACTS = sc.nextInt();
     			for (int i = 0; i < NO_OF_CONTACTS; i++) {
@@ -88,9 +88,9 @@ public class AddressBookMain {
     				System.out.println("Enter Phone Number ");
     				String phone_Number = sc.next();
     				System.out.println("Enter Zip Name ");
-    				String zip_Code = sc.next();	
+    				String zip_Code = sc.next();
     				contact[j] = new AddressBook(last_Name, first_Name, address, city, state, phone_Number,
-    							zip_Code, email);
+    						zip_Code, email);
     				}
     			}
     			break;
