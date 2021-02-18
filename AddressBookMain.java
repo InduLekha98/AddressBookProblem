@@ -1,113 +1,140 @@
-import java.util.Hashtable;
-import java.util.Map;
 import java.util.Scanner;
-	class Book {
-		Scanner sc = new Scanner(System.in);
-		String FIRST_NAME = " ";
-		String LAST_NAME = " ";
-		String CITY = " ";
-		String STATE = " ";
-		String ZIP_CODE = "  ";
-		String PHONE_NO = "";
-		String EMAIL = "";
-
-		public Book(String first_name, String last_name, String city, String state, String zip_code, String phone_no,
-			String email) {
-		  super();
-		  this.FIRST_NAME = first_name;
-		  this.LAST_NAME = last_name;
-		  this.CITY = city;
-		  this.STATE = state;
-		  this.ZIP_CODE = zip_code;
-		  this.PHONE_NO = phone_no;
-		  this.EMAIL = email;
-		}
-
-		public Scanner getSc() {
-			return sc;
-		}
-
-		public void setSc(Scanner sc) {
-			this.sc = sc;
-		}
-
-		public String getFirstname() {
-			return FIRST_NAME;
-		}
-
-		public void setFirstname(String first_name) {
-			this.FIRST_NAME = first_name;
-		}
-
-		public String getLastname() {
-			return LAST_NAME;
-		}
-
-		public void setLastname(String last_name) {
-			this.LAST_NAME = last_name;
-		}
-
-		public String getCity() {
-			return CITY;
-		}
-
-		public void setCity(String city) {
-			this.CITY = city;
-		}
-
-		public String getState() {
-			return STATE;
-		}
-
-		public void setState(String state) {
-			this.STATE = state;
-		}
-
-		public String getZip_code() {
-			return ZIP_CODE;
-		}
-
-		public void setZip_code(String zip_code) {
-			this.ZIP_CODE = zip_code;
-		}
-
-		public String getPhone_no() {
-			return PHONE_NO;
-		}
-
-		public void setPhone_no(String phone_no) {
-			this.PHONE_NO = phone_no;
-		}
-
-		public String getEmail() {
-			return EMAIL;
-		}
-
-		public void setEmail(String email) {
-			this.EMAIL = email;
-		}
-
-		public String toString() {
-			return "Book [ first_name=" + FIRST_NAME + ", last_name=" + LAST_NAME + ", city=" + CITY + ", state=" + STATE
-					+ ", zip_code=" + ZIP_CODE + ", phone_no=" + PHONE_NO + ", email=" + EMAIL + "]";
-		}
+public class AddressBookMain {
+    Scanner s = new Scanner(System.in);
+    class Entry{
+        private String FIrst_NAME;
+	private String LAST_NAME;
+	private String ADDRESS;
+	private String PHONE_NO;
+	private String ZIP_CODE;
+	private String EMAIL;
+	Entry(String FIrst_NAME, String LAST_NAME, String ADDRESS, String PHONE_NO, String ZIP_CODE, String EMAIL){
+            this.FIrst_NAME = FIrst_NAME;
+	    this.LAST_NAME = LAST_NAME;
+	    this.ADDRESS = ADDRESS;
+	    this.PHONE_NO = PHONE_NO;
+            this.ZIP_CODE = ZIP_CODE;
+	    this.EMAIL = EMAIL;
+        }
+        Entry(){
+        	  FIrst_NAME = "";
+        	  LAST_NAME = "";
+        	  ADDRESS = "";
+        	  PHONE_NO = "";
+        	  ZIP_CODE = "";
+        	  EMAIL = "";
 	}
-
-	public class AddressBookMain
-	{
-		public static void main(String[] args)
-		{
-		  Map<Integer, Book> store = new Hashtable<Integer, Book>();
-		  Book b11 = new Book("NK", "gandi nagar", "puttur", "TN", "600001", "709****907", "NK@gmail.com");
-		  Book b12 = new Book("KN", "chitra nagar", "chennai", "AP", "517581", "875****537", "KN@gmail.com");
-		  store.put(2, b12);
-		  store.put(1, b11);
-		  for (Map.Entry<Integer, Book> e1 : store.entrySet()) {
-			int key = e1.getKey();
-			Book b = e1.getValue();
-			System.out.println(key + " contact details are:");
-			System.out.println( b.FIRST_NAME + " " + b.LAST_NAME + " " + b.CITY + " " + b.STATE + " " + b.ZIP_CODE
-					+ " " + b.PHONE_NO + " " + b.EMAIL + " ");
-		}
+	public void readEntry(){
+	    System.out.println("First Name:"+FIrst_NAME );
+	    System.out.println("Last Name:"+LAST_NAME );
+	    System.out.println("Address:"+ADDRESS );
+	    System.out.println("Phone_no:"+PHONE_NO );
+            System.out.println("Zip_code:"+ZIP_CODE );
+            System.out.println("Email:"+EMAIL );
 	}
+	}
+          private int entries = 0;
+          Entry[] contents;
+
+        public void initEntries(int e){
+          contents = new Entry[e];
+        for (int i = 0;i<contents.length;i++){
+          contents[i] = new Entry();
+        }
+    }
+
+    public int getEntries(){
+        return contents.length;
+    }
+
+    public void add(String FIRST_NAME, String LAST_NAME, String ADDRESS, String PHONE_NO, String ZIP_CODE, String EMAIL){
+        if (entries<contents.length){
+            contents[entries] = new Entry(FIRST_NAME, LAST_NAME, ADDRESS, PHONE_NO, ZIP_CODE, EMAIL);
+            entries++;
+        }
+        else
+            System.out.println("Error: book is full");
+        }
+
+        public static void main(String[] args)
+        {
+            Scanner s = new Scanner(System.in);
+            System.out.print("How many books do you want to create? ");
+            int howManyBooks;
+            int howManyEntries;
+
+            AddressBookMain[] library = new AddressBookMain[0];
+
+
+            while(true){
+                howManyBooks = s.nextInt();
+                if (howManyBooks>0){
+                    library = new AddressBookMain[howManyBooks];
+                    break;
+                }
+                else
+                    System.out.print("You must create at least 1 book.");
+                }
+
+
+
+            for (int i=0;i<library.length;i++){
+
+                library[i] = new AddressBookMain();
+
+                while(true){
+                    System.out.print("How many entries in book "+i+"? ");
+                    howManyEntries = s.nextInt();
+                    if (howManyEntries>0) {
+                        library[i].initEntries(howManyEntries);
+                        break;
+                    }
+                    else
+                        System.out.println("You must create at least 1 Entry.");
+                    }
+            }
+              boolean done = false;
+              int selectedBook = 0;
+              int selection;
+            while (done==false){
+                System.out.println("Book "+selectedBook+" is currently selected.");
+
+                for (int i = 0;i<library[selectedBook].getEntries();i++){
+                    System.out.println("===========Entry "+i+" ===========");
+                    library[selectedBook].contents[i].readEntry();
+                    System.out.println("================================");
+                }
+
+
+                    System.out.println("Select an option!");
+                    System.out.println("1. Add an entry");
+                    selection = s.nextInt();
+                    String FIRST_NAME, LAST_NAME, ADDRESS, PHONE_NO, ZIP_CODE, EMAIL;
+                switch(selection){
+                case 1: 
+                    System.out.print("First name? ");
+                    FIRST_NAME = s.next();
+                    System.out.print("Last name? ");
+                    LAST_NAME = s.next();
+                    System.out.print("Address? ");
+                    ADDRESS = s.next();
+                    System.out.print("Phone_no? ");
+                    PHONE_NO = s.next();
+                    System.out.print("Zip_code? ");
+                    ZIP_CODE = s.next();
+                    System.out.print("Email? ");
+                    EMAIL = s.next();
+                    library[selectedBook].add(FIRST_NAME, LAST_NAME, ADDRESS, PHONE_NO, ZIP_CODE, EMAIL);
+                    break;
+                case 2:
+                    done = true;
+                    break;
+                default:
+                    System.out.print("Please choose a valid menu number");
+
+
+                }
+
+            }
+        }
 }
