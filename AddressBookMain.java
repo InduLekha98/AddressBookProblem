@@ -1,166 +1,124 @@
 import java.util.Scanner;
-public class AddressBookMain{
-    Scanner s = new Scanner(System.in);
-    class Entry{
-       	private String FIrst_NAME;
-	private String LAST_NAME;
-	private String ADDRESS;
-	private String PHONE_NO;
-	private String ZIP_CODE;
-	private String EMAIL;
-	Entry(String FIrst_NAME, String LAST_NAME, String ADDRESS, String PHONE_NO, String ZIP_CODE, String EMAIL){
-	    this.FIrst_NAME = FIrst_NAME;
-	    this.LAST_NAME = LAST_NAME;
-	    this.ADDRESS = ADDRESS;
-	    this.PHONE_NO = PHONE_NO;
-	    this.ZIP_CODE = ZIP_CODE;
-	    this.EMAIL = EMAIL;
-        }
-        Entry(){
-           FIrst_NAME = "";
-           LAST_NAME = "";
-           ADDRESS = "";
-       	   PHONE_NO = "";
-       	   ZIP_CODE = "";
-       	   EMAIL = "";
+
+public class AddressBookMain {
+	public String FIRST_NAME;
+	public String LAST_NAME;
+	public String ADDRESS;
+	public String CITY;
+	public String STATE;
+	public String ZIP_CODE;
+	public String PHONE_NUMBER;
+	public String EMAIL;
+	public static int NO_OF_CONTACTS = 0;
+
+	public AddressBook(String last_Name, String first_Name, String address, String city, String state,
+			String phone_Number, String zip_Code, String email) {
+		this.FIRST_NAME = first_Name;
+		this.LAST_NAME = last_Name;
+		this.ADDRESS = address;
+		this.CITY = city;
+		this.STATE = state;
+		this.ZIP_CODE = zip_Code;
+		this.PHONE_NUMBER = phone_Number;
+		this.EMAIL = email;
 	}
-	public void readEntry(){
-	    System.out.println("First Name:"+FIrst_NAME );
-       	    System.out.println("Last Name:"+LAST_NAME );
-	    System.out.println("Address:"+ADDRESS );
-	    System.out.println("Phone_no:"+PHONE_NO );
-	    System.out.println("Zip_code:"+ZIP_CODE );
-	    System.out.println("Email:"+EMAIL );
+
+	public void entry() {
+		System.out.println("First Name :" + FIRST_NAME);
+		System.out.println("Last Name :" + LAST_NAME);
+		System.out.println("ADDRESS :" + ADDRESS);
+		System.out.println("CITY :" + CITY);
+		System.out.println("STATE :" + STATE);
+		System.out.println("ZIP :" + ZIP_CODE);
+		System.out.println("PHONE :" + PHONE_NUMBER);
+		System.out.println("EMAIL  :" + EMAIL);
 	}
-	}
-        private int entries = 0;
-        Entry[] contents;
 
-        public void initEntries(int e){
-            contents = new Entry[e];
-        for (int i = 0;i<contents.length;i++){
-            contents[i] = new Entry();
-        }
-    }
-
-    public int getEntries(){
-        return contents.length;
-    }
-
-    public void add(String FIRST_NAME, String LAST_NAME, String ADDRESS, String PHONE_NO, String ZIP_CODE, String EMAIL){
-        if (entries<contents.length){
-            contents[entries] = new Entry(FIRST_NAME, LAST_NAME, ADDRESS, PHONE_NO, ZIP_CODE, EMAIL);
-            entries++;
-        }
-        else
-            System.out.println("Error: book is full");
-        }
-
-	public void edit(String FIRST_NAME, String LAST_NAME, String ADDRESS, String PHONE_NO,
-    	    String ZIP_CODE, String EMAIL, int selection){
-            contents[selection].FIRST_NAME = FIRST_NAME;
-            contents[selection].LAST_NAME = LAST_NAME;
-            contents[selection].ADDRESS = ADDRESS;
-            contents[selection].PHONE_NO = PHONE_NO;
-            contents[selection].ZIP_CODE = ZIP_CODE;
-            contents[selection].EMAIL = EMAIL;
-       }
-
-        public static void main(String[] args)
-        {
-            Scanner s = new Scanner(System.in);
-            System.out.print("How many books do you want to create? ");
-            int howManyBooks;
-            int howManyEntries;
-
-            AddressBookMain[] library = new AddressBookMain[0];
-
-
-            while(true){
-                howManyBooks = s.nextInt();
-                if (howManyBooks>0){
-                    library = new AddressBookMain[howManyBooks];
-                    break;
-                }
-                else
-                    System.out.print("You must create at least 1 book.");
-                }
-
-
-
-            for (int i=0;i<library.length;i++){
-
-                library[i] = new AddressBookMain();
-
-                while(true){
-                    System.out.print("How many entries in book "+i+"? ");
-                    howManyEntries = s.nextInt();
-                    if (howManyEntries>0) {
-                        library[i].initEntries(howManyEntries);
-                        break;
-                    }
-                    else
-                        System.out.println("You must create at least 1 Entry.");
-                    }
-            }
-            boolean done = false;
-            int selectedBook = 0;
-            int selection;
-            while (done==false){
-                System.out.println("Book "+selectedBook+" is currently selected.");
-
-                for (int i = 0;i<library[selectedBook].getEntries();i++){
-                    System.out.println("===========Entry "+i+" ===========");
-                    library[selectedBook].contents[i].readEntry();
-                    System.out.println("================================");
-                }
-
-
-                    System.out.println("Select an option!");
-                    System.out.println("1. Add an entry");
-                    selection = s.nextInt();
-                    String FIRST_NAME, LAST_NAME, ADDRESS, PHONE_NO, ZIP_CODE, EMAIL;
-                switch(selection){
-                case 1: 
-                    System.out.print("First name? ");
-                    FIRST_NAME = s.next();
-                    System.out.print("Last name? ");
-                    LAST_NAME = s.next();
-                    System.out.print("Address? ");
-                    ADDRESS = s.next();
-                    System.out.print("Phone_no? ");
-                    PHONE_NO = s.next();
-                    System.out.print("Zip_code? ");
-                    ZIP_CODE = s.next();
-                    System.out.print("Email? ");
-                    EMAIL = s.next();
-                    library[selectedBook].add(FIRST_NAME, LAST_NAME, ADDRESS, PHONE_NO, ZIP_CODE, EMAIL);
-                    break;
-		case 2:
-                    int whichEntry = s.nextInt();
-                    System.out.print("First name? ");
-                    FIRST_NAME = s.next();
-                    System.out.print("Last name? ");
-                    LAST_NAME = s.next();
-                    System.out.print("Address? ");
-                    ADDRESS = s.next();
-                    System.out.print("Email? ");
-                    PHONE_NO = s.next();
-                    System.out.print("Email? ");
-                    ZIP_CODE = s.next();
-                    System.out.print("Email? ");
-                    EMAIL = s.next();
-                    library[selectedBook].edit(FIRST_NAME, LAST_NAME, ADDRESS, PHONE_NO, ZIP_CODE, EMAIL, whichEntry);
-                    break;
-                case 3:
-                    done = true;
-                    break;
-                default:
-                    System.out.print("Please choose a valid menu number");
-
-
-                }
-
-            }
-        }
+	public static void main(String Args[]) {
+    	        Scanner sc = new Scanner(System.in);
+    	        AddressBook contact[] = new AddressBook[10];
+    	        System.out.println("Weclome to Address Book \n");
+    	while (true) {
+    		System.out.println("Select an option \n 1.Add \n 2.Edit \n 3.Delete");
+    		int option = sc.nextInt();
+    		switch (option) {
+    		case 1:
+    			System.out.println("Enter Number of Contacts \n");
+    			NO_OF_CONTACTS = sc.nextInt();
+    			for (int i = 0; i < NO_OF_CONTACTS; i++) {
+    			System.out.println("Enter first Name ");
+    			String first_Name = sc.next();
+    			System.out.println("Enter last Name ");
+    			String last_Name = sc.next();
+    			System.out.println("Enter Address Lane ");
+    			String address = sc.next();
+    			System.out.println("Enter City ");
+    			String city = sc.next();
+    			System.out.println("Enter state ");
+    			String state = sc.next();
+    			System.out.println("Enter Email ");
+    			String email = sc.next();
+    			System.out.println("Enter Phone Number ");
+    			String phone_Number = sc.next();
+    			System.out.println("Enter Zip Name ");
+    			String zip_Code = sc.next();
+    			contact[i] = new AddressBook(last_Name, first_Name, address, city, state, phone_Number, zip_Code,
+    							email);
+    		}
+    			break;
+    		case 2:
+    			System.out.println("Enter Name of the contact you want to edit \n");
+    			String last_Name_Edit = sc.next();
+    			for (int j = 0; j < NO_OF_CONTACTS; j++) {
+    			boolean found_Not_Found = contact[j].LAST_NAME.equals(last_Name_Edit);
+    			if (found_Not_Found == true) {
+    				System.out.println("Enter new contact details ");
+    				System.out.println("Enter first Name ");
+    				String first_Name = sc.next();
+    				System.out.println("Enter Last Name ");
+    				String last_Name = sc.next();
+    				System.out.println("Enter Address Lane ");
+    				String address = sc.next();
+    				System.out.println("Enter City ");
+    				String city = sc.next();
+    				System.out.println("Enter state ");
+    				String state = sc.next();
+    				System.out.println("Enter Email ");
+    				String email = sc.next();
+    				System.out.println("Enter Phone Number ");
+    				String phone_Number = sc.next();
+    				System.out.println("Enter Zip Name ");
+    				String zip_Code = sc.next();	
+    				contact[j] = new AddressBook(last_Name, first_Name, address, city, state, phone_Number,
+    							zip_Code, email);
+    				}
+    			}
+    			break;
+    		case 3:
+    			System.out.println("Enter Name of the contact you want to delete \n");
+    			String last_Name_Delete = sc.next();
+    			AddressBook contact_Final[] = new AddressBook[10];
+    			for (int k = 0, s = 0; k < NO_OF_CONTACTS; k++) {
+    				boolean found_Not_Found = contact[k].LAST_NAME.equals(last_Name_Delete);
+    				if (found_Not_Found == true) {
+    					continue;
+    				}
+    				contact_Final[s++] = contact[k];
+    			}
+    			try {
+    				for (int k = 0; k < NO_OF_CONTACTS; k++) {
+   					contact_Final[k].entry();
+   					}
+   				} catch (NullPointerException e) {
+   					System.out.println("End of Contacts");
+   				}
+    			break;
+    		case 4:
+    			for (int k = 0; k < NO_OF_CONTACTS; k++) {
+    				contact[k].entry();
+    			}
+    			break;
+    		}
+    	}
+   	}
 }
